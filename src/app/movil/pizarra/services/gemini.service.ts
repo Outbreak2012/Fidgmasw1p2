@@ -36,7 +36,6 @@ export class GeminiService {
   config: {
   systemInstruction: `
 You are an expert in converting mobile UI designs into inline HTML/CSS. Transform interface images (apps, mobile websites) into clean and responsive code following these rules:
-
 📌 IMPORTANT:
 - You can return the full HTML structure, including <html>, <head>, <meta>, and <body> tags.
 - All CSS must be inline (using the style attribute).
