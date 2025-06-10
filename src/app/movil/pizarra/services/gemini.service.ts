@@ -33,8 +33,8 @@ export class GeminiService {
 
         ]),
       ],
-  config: {
-  systemInstruction: `
+      config: {
+        systemInstruction: `
 You are an expert in converting mobile UI designs into inline HTML/CSS. Transform interface images (apps, mobile websites) into clean and responsive code following these rules:
 📌 IMPORTANT:
 - You can return the full HTML structure, including <html>, <head>, <meta>, and <body> tags.
@@ -70,7 +70,7 @@ Sticky header example:
 - Placeholders must keep the original dimensions
 - Every visible element must have a defined background color — including the <body> — to avoid layout or rendering inconsistencies.
   `,
-}
+      }
 
 
 
@@ -108,33 +108,37 @@ Sticky header example:
       model: "gemini-2.0-flash",
       contents: [
         createUserContent([
-          texto, `Genera código HTML que implemente Material Design 3 (como en Flutter) para mostrar la descripción que te proporcione. 
-        Requisitos:
-        1. Usa estilos en línea (inline styles) para replicar fielmente los componentes de Flutter/Material 3
-        2. Incluye estos elementos de Flutter:
-        - Layouts (Row, Column, Stack)
-        - Widgets (Card, ListTile, Chip, etc.)
-        - Inputs (TextField, Checkbox, etc.)
-        - Navigation patterns
-        - Material Design 3 componentes
-        3. Características obligatorias:
-        - No hacer responsive
-        - Solo código esencial, sin comentarios
-        - Estructura limpia y minimalista
-        - Fidelidad al look & feel de Flutter
-       4. Excluir:
-       - Meta tags
-       - CSS externo
-       - JavaScript
-      - Elementos no esenciales
-       El HTML debe ser autónomo con todos los estilos en línea.`
+          texto, `Generate HTML code that implements Material Design 3 (as in Flutter) to display the description I provide.
+    Requirements:
+    1. Use inline styles to faithfully replicate Flutter/Material 3 components
+    2. Include these Flutter elements:
+    - Layouts (Row, Column, Stack)
+    - Widgets (Card, ListTile, Chip, etc.)
+    - Inputs (TextField, Checkbox, etc.)
+    - Navigation patterns
+    - Material Design 3 components
+    3. Mandatory features:
+    - Do not make it responsive
+    - Only essential code, no comments
+    - Clean and minimalist structure
+    - Fidelity to Flutter's look & feel
+    4. Exclude:
+    - Meta tags
+    - External CSS
+    - JavaScript
+    - Non-essential elements
+    The HTML must be standalone with all styles inline.`
         ]),
       ],
+      config: {
+        systemInstruction: 'You are an expert at generating Flutter-style HTML code. Return only the HTML code.',
+      },
     });
+
     return response.text;
   }
 
-  
+
   /**
    *  de audio a html flutter
    * @file file 
@@ -148,10 +152,23 @@ Sticky header example:
       model: "gemini-2.0-flash",
       contents: [
         createUserContent([
-          `Genera código HTML que implemente Material Design 3 (como en Flutter) para mostrar la descripción del audio que te proporciono.\nRequisitos:\n1. Usa estilos en línea (inline styles) para replicar fielmente los componentes de Flutter/Material 3\n2. Incluye estos elementos de Flutter:\n- Layouts (Row, Column, Stack)\n- Widgets (Card, ListTile, Chip, etc.)\n- Inputs (TextField, Checkbox, etc.)\n- Navigation patterns\n- Material Design 3 componentes\n3. Características obligatorias:\n- No hacer responsive\n- Solo código esencial, sin comentarios\n- Estructura limpia y minimalista\n- Fidelidad al look & feel de Flutter\n4. Excluir:\n- Meta tags\n- CSS externo\n- JavaScript\n- Elementos no esenciales\nEl HTML debe ser autónomo con todos los estilos en línea.`,
+          `Generate HTML code that implements Material Design 3 (as in Flutter)
+    to display the description of the audio I provide.\nRequirements:\n1.
+    Use inline styles to faithfully replicate Flutter/Material 3 components\n2.
+    Include these Flutter elements:\n- Layouts (Row, Column, Stack)\n
+    - Widgets (Card, ListTile, Chip, etc.)\n- Inputs (TextField, Checkbox, etc.)\n
+    - Navigation patterns\n- Material Design 3 components\n3. Mandatory features:\n
+    - Do not make it responsive\n- Only essential code, no comments\n
+    - Clean and minimalist structure\n- Fidelity to Flutter's look & feel\n4. Exclude:\n
+    - Meta tags\n- External CSS\n- JavaScript\n- Non-essential elements\n
+    The HTML must be standalone with all styles inline.`,
           createPartFromUri(audio.uri!, audio.mimeType!),
         ]),
       ],
+      config: {
+        systemInstruction: 'You are an expert at generating Flutter-style HTML code from audio. Return only HTML code.',
+      },
+
     });
     return response.text ?? '';
   }
